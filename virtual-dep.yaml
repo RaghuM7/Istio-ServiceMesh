@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: virtual-id-deployment
+  labels:
+    app: virtual-id
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: virtual-id
+  template:
+    metadata:
+      labels:
+        app: virtual-id
+    spec:
+      containers:
+      - name: virtual-id-container
+        image: 311047765/virtual-id:latest
+        volumeMounts:
+        - name: root-volume
+          mountPath: /root
+      volumes:
+      - name: root-volume
+        hostPath:
+          path: /root
+          type: Directory
